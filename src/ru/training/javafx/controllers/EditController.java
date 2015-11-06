@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,12 +20,18 @@ import java.io.IOException;
 public class EditController {
 
     @FXML
-    private Button editButton;
+    private Button editButtonEdit;
+    @FXML
+    private Button declineButtonEdit;
+    @FXML
+    private TextField nameTextFieldEdit;
+    @FXML
+    private TextField phoneTextFieldEdit;
 
 
     public void editButtonClick(ActionEvent actionEvent) {
 
-        editButton.setText("Изменено");
+        editButtonEdit.setText("Изменено");
 
     }
 

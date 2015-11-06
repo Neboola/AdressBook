@@ -24,7 +24,7 @@
     <children>
         <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#showEdit" prefHeight="25.0" prefWidth="85.0" text="Изменить" GridPane.rowIndex="1">
+                <Button fx:id="editButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#showEdit" prefHeight="25.0" prefWidth="85.0" text="Изменить" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </GridPane.margin>
@@ -32,7 +32,7 @@
                         <Insets right="8.0" />
                     </HBox.margin>
                 </Button>
-                <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Удалить" GridPane.rowIndex="2">
+                <Button fx:id="deleteButtonMain" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Удалить" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </GridPane.margin>
@@ -40,7 +40,7 @@
                         <Insets left="6.0" right="6.0" />
                     </HBox.margin>
                 </Button>
-                <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#showAdd" prefHeight="25.0" prefWidth="85.0" text="Добавить">
+                <Button fx:id="addButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#showAdd" prefHeight="25.0" prefWidth="85.0" text="Добавить">
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                     </GridPane.margin>
@@ -58,8 +58,8 @@
         </HBox>
         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <TextField layoutX="20.0" layoutY="2.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="194.0" promptText="Поиск..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="96.0" />
-                <Button layoutX="195.0" layoutY="2.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Найти" AnchorPane.rightAnchor="0.0" />
+                <TextField fx:id="searchTextFieldMain" layoutX="20.0" layoutY="2.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="194.0" promptText="Поиск..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="96.0" />
+                <Button fx:id="searchButtonMain" layoutX="195.0" layoutY="2.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Найти" AnchorPane.rightAnchor="0.0" />
             </children>
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -70,7 +70,7 @@
                 <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
             </GridPane.margin>
         </Label>
-        <Label text="00" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Label fx:id="numberOfRecordsLabelMain" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets bottom="20.0" left="62.0" right="10.0" top="10.0" />
             </GridPane.margin>
@@ -80,7 +80,7 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </GridPane.margin>
             <children>
-                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="tableMain" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                         <TableColumn prefWidth="75.0" text="Имя" />
                         <TableColumn prefWidth="75.0" text="Телефон" />
