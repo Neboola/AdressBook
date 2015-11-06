@@ -36,7 +36,7 @@ public class MainController {
     public void showAdd(ActionEvent actionEvent) {
         try{
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/edit.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../fxml/add.fxml"));
             stage.setTitle("Добавить");
             stage.setMinWidth(300);
             stage.setMinHeight(150);

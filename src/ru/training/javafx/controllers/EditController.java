@@ -1,13 +1,16 @@
 package ru.training.javafx.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 
 /**
@@ -15,9 +18,15 @@ import java.io.IOException;
  */
 public class EditController {
 
+    @FXML
+    private Button editButton;
 
 
+    public void editButtonClick(ActionEvent actionEvent) {
 
+        editButton.setText("Изменено");
+
+    }
 
 
 }
