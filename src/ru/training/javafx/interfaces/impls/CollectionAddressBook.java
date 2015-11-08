@@ -30,4 +30,20 @@ public class CollectionAddressBook implements AddressBook {
     public void edit(Person person) {
 
     }
+
+    public void printBookConsole(){
+
+
+        for(Person p : personList){
+            System.out.println("Имя: " + p.getName() + " Телефон: " + p.getPhone());
+        }
+    }
+
+    public void fillTestCollection(){
+        for (int i = 0; i < 20; i++) {
+            add(new Person("test" + i, i + "00000000"));
+        }
+    }
+
+
 }

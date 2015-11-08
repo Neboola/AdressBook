@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+import ru.training.javafx.objects.Person;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -17,14 +21,28 @@ public class Main extends Application {
         primaryStage.setMinWidth(300);
         primaryStage.setMinHeight(300);
         primaryStage.setScene(scene);
-
-
-
         primaryStage.show();
+
+        testData();
     }
 
 
     public static void main(String[] args) {
         launch(args);
+
     }
+
+    private void testData(){
+
+        CollectionAddressBook addressBook = new CollectionAddressBook();
+        addressBook.fillTestCollection();
+        addressBook.printBookConsole();
+
+
+
+    }
+
+
+
+
 }

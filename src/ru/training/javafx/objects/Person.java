@@ -7,10 +7,11 @@ public class Person {
     private String name;
     private String phone;
 
-    Person(){
+    public Person(){
 
     }
-    Person(String name, String phone){
+
+    public Person(String name, String phone) {
         this.name = name;
         this.phone = phone;
     }
