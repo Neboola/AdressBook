@@ -35,8 +35,8 @@ public class Main extends Application {
     private void testData(){
 
         CollectionAddressBook addressBook = new CollectionAddressBook();
-        addressBook.fillTestCollection();
-        addressBook.printBookConsole();
+        addressBook.fillTestCollection(20);
+        addressBook.printInConsole();
 
 
 

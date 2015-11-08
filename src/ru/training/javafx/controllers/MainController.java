@@ -6,17 +6,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+import ru.training.javafx.objects.Person;
 
 
 import java.io.IOException;
 
 public class MainController {
+
+    private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     @FXML
     private Button editButtonMain;
@@ -29,10 +31,31 @@ public class MainController {
     @FXML
     private Button searchButtonMain;
     @FXML
-    private TableView tableMain;
+    private TableView tableAddressBook;
     @FXML
-    private Label numberOfRecordsLabelMain;
+    private Label labelCount;
+    @FXML
+    private TableColumn<Person, String> columnName;
+    @FXML
+    private TableColumn<Person, String> columnPhone;
 
+    @FXML
+    private void initialize(){
+        //Указываем в параметре название поля, PropertyValueFactory автоматически считывает нужный геттер
+        //поля класса Person
+        columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+
+        addressBookImpl.fillTestCollection(12);
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
+
+        updateCountLabel();
+
+    }
+
+    private void updateCountLabel() {
+        labelCount.setText("" + addressBookImpl.getPersonList().size());
+    }
 
 
     public void showEdit(ActionEvent actionEvent) {

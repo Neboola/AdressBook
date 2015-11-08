@@ -70,7 +70,7 @@
                 <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
             </GridPane.margin>
         </Label>
-        <Label fx:id="numberOfRecordsLabelMain" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Label fx:id="labelCount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets bottom="20.0" left="62.0" right="10.0" top="10.0" />
             </GridPane.margin>
@@ -80,10 +80,10 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </GridPane.margin>
             <children>
-                <TableView fx:id="tableMain" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="tableAddressBook" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="Имя" />
-                        <TableColumn prefWidth="75.0" text="Телефон" />
+                        <TableColumn fx:id="columnName" prefWidth="75.0" text="Имя" />
+                        <TableColumn fx:id="columnPhone" prefWidth="75.0" text="Телефон" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

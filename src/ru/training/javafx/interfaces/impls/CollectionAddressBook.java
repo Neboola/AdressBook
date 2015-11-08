@@ -1,18 +1,21 @@
 package ru.training.javafx.interfaces.impls;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ru.training.javafx.interfaces.AddressBook;
 import ru.training.javafx.objects.Person;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Created by Neboola on 08.11.2015.
  */
 public class CollectionAddressBook implements AddressBook {
 
-    private ArrayList<Person> personList = new ArrayList<Person>();
+    private ObservableList<Person> personList = FXCollections.observableArrayList();
 
-    public ArrayList<Person> getPersonList(){
+    public ObservableList<Person> getPersonList(){
         return personList;
     }
 
@@ -31,7 +34,7 @@ public class CollectionAddressBook implements AddressBook {
 
     }
 
-    public void printBookConsole(){
+    public void printInConsole(){
 
 
         for(Person p : personList){
@@ -39,8 +42,8 @@ public class CollectionAddressBook implements AddressBook {
         }
     }
 
-    public void fillTestCollection(){
-        for (int i = 0; i < 20; i++) {
+    public void fillTestCollection(int n){
+        for (int i = 0; i < n; i++) {
             add(new Person("test" + i, i + "00000000"));
         }
     }
