@@ -29,22 +29,31 @@ public class DialogController {
     @FXML
     private TextField phoneTextField;
 
+    private Person person;
+
 
     public void editButtonClick(ActionEvent actionEvent) {
         editButton.setText("Готово!");
     }
 
+
+
+    public void setPerson(Person person){
+        this.person = person;
+        nameTextField.setText(person.getName());
+        phoneTextField.setText(person.getPhone());
+    }
+
+    public void actionSave(ActionEvent actionEvent){
+        person.setPhone(phoneTextField.getText());
+        person.setName(nameTextField.getText());
+        actionClose(actionEvent);
+    }
+
     public void actionClose(ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
-
-    public void setPerson(Person person){
-        this.setPerson(person); // edited
-
-        nameTextField.setText(person.getName());
-        phoneTextField.setText(person.getPhone());
+        stage.hide();
     }
 
 

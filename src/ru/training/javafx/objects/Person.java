@@ -1,34 +1,46 @@
 package ru.training.javafx.objects;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Created by Neboola on 08.11.2015.
  */
 public class Person {
-    private String name;
-    private String phone;
+    private SimpleStringProperty name = new SimpleStringProperty("");
+    private SimpleStringProperty phone = new SimpleStringProperty("");
 
-    public Person(){
-
-    }
+    public Person(){}
 
     public Person(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
+        this.name = new SimpleStringProperty(name);
+        this.phone = new SimpleStringProperty(phone);
     }
 
     public String getName(){
-        return name;
+        return name.get();
+    }
+    public void setName(String name){
+        this.name.set(name);
     }
     public String getPhone(){
+        return phone.get();
+    }
+    public void setPhone(String phone){
+        this.phone.set(phone);
+    }
+
+    public SimpleStringProperty nameProperty(){
+        return name;
+    }
+    public SimpleStringProperty phoneProperty(){
         return phone;
     }
 
-    public void setName(String name){
-        this.name = name;
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
-    public void setPhone(String phone){
-        this.phone = phone;
-    }
-
-
 }

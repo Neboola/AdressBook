@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Person;
 
@@ -40,6 +41,12 @@ public class MainController {
     @FXML
     private TableColumn<Person, String> columnPhone;
 
+    private Parent fxmlEdit; //FXMLEdit
+    private FXMLLoader fxmlLoader = new FXMLLoader();
+    private DialogController dialogController;
+    private Stage dialogStage;
+
+
     @FXML
     private void initialize(){
         //Указываем в параметре название поля, PropertyValueFactory автоматически считывает нужный геттер
@@ -51,17 +58,27 @@ public class MainController {
             @Override
             public void onChanged(Change<? extends Person> change) {
                 updateCountLabel();
-                tableAddressBook.setItems(addressBookImpl.getPersonList());
+                //tableAddressBook.setItems(addressBookImpl.getPersonList());
             }
         });
 
-        addressBookImpl.fillTestCollection(12);
-
         tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
 
+        addressBookImpl.fillTestCollection(12);
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
+
+/*
+        try{
+            fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
+            fxmlEdit = fxmlLoader.load();
+            dialogController = fxmlLoader.getController();
 
 
-
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+*/
 
     }
 
@@ -85,6 +102,7 @@ public class MainController {
         switch (clickedButton.getId()){
             case "addButtonMain" :
                 System.out.println("Add " + selectedPerson);
+                addressBookImpl.getPersonList().add(new Person("Jil", "333333333"));
                 break;
             case "editButtonMain" :
                 System.out.println("Edit " + selectedPerson);
@@ -94,6 +112,8 @@ public class MainController {
                 break;
         }
 
+
+/*
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
@@ -109,10 +129,26 @@ public class MainController {
         }   catch (IOException e){
             e.printStackTrace();
         }
+*/
 
 
 
+    }
 
+    private void showDialog(Window parentWindow){
+        if(dialogStage==null){
+            dialogStage = new Stage();
+            //Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
+            dialogStage.setTitle("Диалог");
+            dialogStage.setMinWidth(300);
+            dialogStage.setMinHeight(150);
+            dialogStage.setResizable(false);
+            dialogStage.setScene(new Scene(fxmlEdit));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(parentWindow);
+
+        }
+        dialogStage.show();
     }
 
 
