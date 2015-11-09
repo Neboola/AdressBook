@@ -57,7 +57,7 @@ public class MainController {
 
         addressBookImpl.fillTestCollection(12);
 
-
+        tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
 
 
 
@@ -71,6 +71,33 @@ public class MainController {
         labelCount.setText("" + addressBookImpl.getPersonList().size());
     }
 
+    public void showDialog(ActionEvent actionEvent) {
+
+        Object source = actionEvent.getSource();
+
+        if(!(source instanceof Button)){
+            return;
+        }
+
+        Button clickedButton = (Button) source;
+        Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
+
+        switch (clickedButton.getId()){
+            case "addButtonMain" :
+                System.out.println("Add " + selectedPerson);
+                break;
+            case "editButtonMain" :
+                System.out.println("Edit " + selectedPerson);
+                break;
+            case "deleteButtonMain" :
+                System.out.println("Delete " + selectedPerson);
+                break;
+        }
+
+
+
+
+    }
 
     public void showEdit(ActionEvent actionEvent) {
         try{
