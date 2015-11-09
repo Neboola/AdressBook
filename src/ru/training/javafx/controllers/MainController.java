@@ -94,6 +94,22 @@ public class MainController {
                 break;
         }
 
+        try{
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
+            stage.setTitle("Диалог");
+            stage.setMinWidth(300);
+            stage.setMinHeight(150);
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+            stage.show();
+
+        }   catch (IOException e){
+            e.printStackTrace();
+        }
+
 
 
 
