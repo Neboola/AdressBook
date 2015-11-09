@@ -115,47 +115,8 @@ public class MainController {
 
     }
 
-    public void showEdit(ActionEvent actionEvent) {
-        try{
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/edit.fxml"));
-            stage.setTitle("Изменить");
-            stage.setMinWidth(300);
-            stage.setMinHeight(150);
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-            stage.show();
-
-        }   catch (IOException e){
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public void showAdd(ActionEvent actionEvent) {
-        try{
-
-
-            //addressBookImpl.getPersonList().add(new Person("NameAdded" + addressBookImpl.getPersonList().size(), "0000"));
 
 
 
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/add.fxml"));
-            stage.setTitle("Добавить");
-            stage.setMinWidth(300);
-            stage.setMinHeight(150);
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-            stage.show();
 
-        }   catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 }
