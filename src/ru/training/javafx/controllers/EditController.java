@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ru.training.javafx.objects.Person;
 
 
 import java.io.IOException;
@@ -30,9 +31,20 @@ public class EditController {
 
 
     public void editButtonClick(ActionEvent actionEvent) {
-
         editButtonEdit.setText("Изменено");
+    }
 
+    public void actionClose(ActionEvent actionEvent) {
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
+
+    public void setPerson(Person person){
+        this.setPerson(person); // edited
+
+        nameTextFieldEdit.setText(person.getName());
+        phoneTextFieldEdit.setText(person.getPhone());
     }
 
 
