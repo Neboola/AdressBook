@@ -1,5 +1,6 @@
 package ru.training.javafx.controllers;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,12 +47,25 @@ public class MainController {
         columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
 
-        addressBookImpl.fillTestCollection(12);
-        tableAddressBook.setItems(addressBookImpl.getPersonList());
+        addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> change) {
+                updateCountLabel();
+                tableAddressBook.setItems(addressBookImpl.getPersonList());
+            }
+        });
 
-        updateCountLabel();
+        addressBookImpl.fillTestCollection(12);
+
+
+
+
+
+
 
     }
+
+
 
     private void updateCountLabel() {
         labelCount.setText("" + addressBookImpl.getPersonList().size());
@@ -80,6 +94,12 @@ public class MainController {
 
     public void showAdd(ActionEvent actionEvent) {
         try{
+
+
+            //addressBookImpl.getPersonList().add(new Person("NameAdded" + addressBookImpl.getPersonList().size(), "0000"));
+
+
+
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("../fxml/add.fxml"));
             stage.setTitle("Добавить");
