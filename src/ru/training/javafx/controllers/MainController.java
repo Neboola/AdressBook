@@ -104,12 +104,12 @@ public class MainController {
         switch (clickedButton.getId()){
             case "addButtonMain" :
                 Person newPerson = new Person();
-                addressBookImpl.add(newPerson);
-
                 dialogController.setPerson(newPerson);
                 showDialog(parentWindow, "add_dialog");
 
-                if(newPerson.getName().equals("") && newPerson.getPhone().equals("")) { addressBookImpl.delete(newPerson); }
+                if(!newPerson.getName().equals("") && !newPerson.getPhone().equals("")) {
+                    addressBookImpl.add(newPerson);
+                }
 
                 break;
             case "editButtonMain" :
