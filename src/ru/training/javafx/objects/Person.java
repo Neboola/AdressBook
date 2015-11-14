@@ -6,8 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
  * Created by Neboola on 08.11.2015.
  */
 public class Person {
+
     private SimpleStringProperty name = new SimpleStringProperty("");
-    private SimpleStringProperty phone = new SimpleStringProperty("");
+    private SimpleStringProperty phone = new SimpleStringProperty("");;
 
     public Person(){}
 
@@ -19,12 +20,15 @@ public class Person {
     public String getName(){
         return name.get();
     }
+
     public void setName(String name){
         this.name.set(name);
     }
+
     public String getPhone(){
         return phone.get();
     }
+
     public void setPhone(String phone){
         this.phone.set(phone);
     }
@@ -32,6 +36,7 @@ public class Person {
     public SimpleStringProperty nameProperty(){
         return name;
     }
+
     public SimpleStringProperty phoneProperty(){
         return phone;
     }

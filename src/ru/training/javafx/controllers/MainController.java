@@ -41,7 +41,7 @@ public class MainController {
     @FXML
     private TableColumn<Person, String> columnPhone;
 
-    private Parent fxmlEdit; //FXMLEdit
+    private Parent fxmlDialog; //FXMLEdit
     private FXMLLoader fxmlLoader = new FXMLLoader();
     private DialogController dialogController;
     private Stage dialogStage;
@@ -67,10 +67,9 @@ public class MainController {
         addressBookImpl.fillTestCollection(12);
         tableAddressBook.setItems(addressBookImpl.getPersonList());
 
-/*
         try{
             fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
-            fxmlEdit = fxmlLoader.load();
+            fxmlDialog = (Parent) fxmlLoader.load();
             dialogController = fxmlLoader.getController();
 
 
@@ -78,7 +77,7 @@ public class MainController {
         catch(IOException e){
             e.printStackTrace();
         }
-*/
+
 
     }
 
@@ -88,7 +87,7 @@ public class MainController {
         labelCount.setText("" + addressBookImpl.getPersonList().size());
     }
 
-    public void showDialog(ActionEvent actionEvent) {
+    public void actionButtonPressed(ActionEvent actionEvent) {
 
         Object source = actionEvent.getSource();
 
@@ -98,6 +97,8 @@ public class MainController {
 
         Button clickedButton = (Button) source;
         Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
+        Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
+        dialogController.setPerson(selectedPerson);
 
         switch (clickedButton.getId()){
             case "addButtonMain" :
@@ -105,35 +106,15 @@ public class MainController {
                 addressBookImpl.getPersonList().add(new Person("Jil", "333333333"));
                 break;
             case "editButtonMain" :
-                System.out.println("Edit " + selectedPerson);
+                showDialog(parentWindow);
                 break;
             case "deleteButtonMain" :
                 System.out.println("Delete " + selectedPerson);
                 break;
         }
-
-
-/*
-        try{
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
-            stage.setTitle("Диалог");
-            stage.setMinWidth(300);
-            stage.setMinHeight(150);
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-            stage.show();
-
-        }   catch (IOException e){
-            e.printStackTrace();
-        }
-*/
-
-
-
     }
+
+    //
 
     private void showDialog(Window parentWindow){
         if(dialogStage==null){
@@ -143,7 +124,7 @@ public class MainController {
             dialogStage.setMinWidth(300);
             dialogStage.setMinHeight(150);
             dialogStage.setResizable(false);
-            dialogStage.setScene(new Scene(fxmlEdit));
+            dialogStage.setScene(new Scene(fxmlDialog));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(parentWindow);
 
