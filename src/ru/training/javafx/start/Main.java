@@ -11,6 +11,8 @@ import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Person;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
@@ -29,11 +31,14 @@ public class Main extends Application {
 */
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../fxml/main.fxml"));
+
+        fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
+
         Parent fxmlMain = (Parent) fxmlLoader.load();
         MainController mainController = fxmlLoader.getController();
         mainController.setMainStage(primaryStage);
 
-        primaryStage.setTitle("Адресная книга");
+        primaryStage.setTitle(fxmlLoader.getResources().getString("phone_book"));
         primaryStage.setMinHeight(300);
         primaryStage.setMinWidth(285);
         primaryStage.setScene(new Scene(fxmlMain, 303, 400));

@@ -24,7 +24,7 @@
     <children>
         <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button fx:id="editButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="85.0" text="Изменить" GridPane.rowIndex="1">
+                <Button fx:id="editButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="85.0" text="%edit" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </GridPane.margin>
@@ -32,7 +32,7 @@
                         <Insets right="8.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="deleteButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="85.0" text="Удалить" GridPane.rowIndex="2">
+                <Button fx:id="deleteButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="85.0" text="%delete" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </GridPane.margin>
@@ -40,7 +40,7 @@
                         <Insets left="6.0" right="6.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="addButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="85.0" text="Добавить">
+                <Button fx:id="addButtonMain" minHeight="-Infinity" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="85.0" text="%add">
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                     </GridPane.margin>
@@ -58,23 +58,13 @@
         </HBox>
         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <TextField fx:id="searchTextFieldMain" layoutX="20.0" layoutY="2.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="194.0" promptText="Поиск..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="96.0" />
-                <Button fx:id="searchButtonMain" layoutX="195.0" layoutY="2.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Найти" AnchorPane.rightAnchor="0.0" />
+                <TextField fx:id="searchTextFieldMain" layoutX="20.0" layoutY="2.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="194.0" promptText="%search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="96.0" />
+                <Button fx:id="searchButtonMain" layoutX="195.0" layoutY="2.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="%find" AnchorPane.rightAnchor="0.0" />
             </children>
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </GridPane.margin>
         </AnchorPane>
-        <Label text="Записей:" GridPane.columnIndex="1" GridPane.rowIndex="4">
-            <GridPane.margin>
-                <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
-            </GridPane.margin>
-        </Label>
-        <Label fx:id="labelCount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-            <GridPane.margin>
-                <Insets bottom="20.0" left="62.0" right="10.0" top="10.0" />
-            </GridPane.margin>
-        </Label>
         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -82,8 +72,8 @@
             <children>
                 <TableView fx:id="tableAddressBook" onMouseClicked="#mouseClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                        <TableColumn fx:id="columnName" prefWidth="75.0" text="Имя" />
-                        <TableColumn fx:id="columnPhone" prefWidth="75.0" text="Телефон" />
+                        <TableColumn fx:id="columnName" prefWidth="75.0" text="%name" />
+                        <TableColumn fx:id="columnPhone" prefWidth="75.0" text="%phone" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -91,5 +81,12 @@
                 </TableView>
             </children>
         </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+              <Label layoutX="14.0" layoutY="6.0" text="%count" AnchorPane.leftAnchor="10.0" />
+              <Label fx:id="labelCount" layoutX="53.0" layoutY="6.0" text="0" AnchorPane.leftAnchor="51.0" />
+            <Label layoutX="150.0" layoutY="6.0" text=":" AnchorPane.leftAnchor="45.0" />
+         </children>
+      </AnchorPane>
     </children>
 </GridPane>

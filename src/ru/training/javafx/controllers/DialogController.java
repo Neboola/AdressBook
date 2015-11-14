@@ -3,6 +3,7 @@ package ru.training.javafx.controllers;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
+        import javafx.fxml.Initializable;
         import javafx.scene.Node;
         import javafx.scene.Parent;
         import javafx.scene.Scene;
@@ -14,11 +15,13 @@ package ru.training.javafx.controllers;
 
 
         import java.io.IOException;
+        import java.net.URL;
+        import java.util.ResourceBundle;
 
 /**
  * Created by Neboola on 07.11.2015.
  */
-public class DialogController {
+public class DialogController implements Initializable {
 
     @FXML
     private Button editButton;
@@ -31,6 +34,7 @@ public class DialogController {
 
     private Person person;
 
+    private ResourceBundle resourceBundle;
 
     //public void editButtonClick(ActionEvent actionEvent) {
     //    editButton.setText("Готово!");
@@ -59,6 +63,11 @@ public class DialogController {
 
     public Person getPerson() {
         return person;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resource) {
+        resourceBundle = resource;
     }
 }
 

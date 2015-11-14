@@ -6,6 +6,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,8 +21,11 @@ import ru.training.javafx.objects.Person;
 
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable{
 
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
@@ -51,14 +55,19 @@ public class MainController {
     private DialogController dialogController;
     private Stage dialogStage;
 
+    private ResourceBundle resourceBundle;
+
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
 
-    @FXML
-    private void initialize(){
-        //Указываем в параметре название поля, PropertyValueFactory автоматически считывает нужный геттер
-        //поля класса Person
+    //@FXML
+    @Override
+    public void initialize(URL url, ResourceBundle resource) {
+
+        resourceBundle = resource;
+
+        //Указываем в параметре название поля, PropertyValueFactory автоматически считывает нужный геттер //поля класса Person
         columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
         //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
@@ -88,7 +97,7 @@ public class MainController {
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getClickCount() == 2) {
                     dialogController.setPerson((Person) tableAddressBook.getSelectionModel().getSelectedItem());
-                    showDialog("edit_dialog");
+                    showDialog(resourceBundle.getString("edit_dialog"));
                 }
             }
         });
@@ -98,6 +107,9 @@ public class MainController {
     private void initializeLoader(){
         try{
             fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
+
+            fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
+
             fxmlDialog = (Parent) fxmlLoader.load();
             dialogController = fxmlLoader.getController();
 
@@ -135,7 +147,7 @@ public class MainController {
 */
                 Person newPerson = new Person();
                 dialogController.setPerson(newPerson);
-                showDialog("add_dialog");
+                showDialog(resourceBundle.getString("add_dialog"));
 
                 if(!newPerson.getName().equals("") && !newPerson.getPhone().equals("")) {
                     addressBookImpl.add(newPerson);
@@ -144,7 +156,7 @@ public class MainController {
                 break;
             case "editButtonMain" :
                 dialogController.setPerson(selectedPerson);
-                showDialog("edit_dialog");
+                showDialog(resourceBundle.getString("edit_dialog"));
                 break;
             case "deleteButtonMain" :
                 //addressBookImpl.getPersonList().remove(selectedPerson);
@@ -159,6 +171,8 @@ public class MainController {
         if(dialogStage==null){
             dialogStage = new Stage();
             //Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
+
+
 
             dialogStage.setMinWidth(300);
             dialogStage.setMinHeight(150);
@@ -176,4 +190,6 @@ public class MainController {
     public void mouseClicked(Event event) {
         System.out.println("click");
     }
+
+
 }
