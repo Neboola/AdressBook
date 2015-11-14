@@ -61,18 +61,16 @@ public class MainController {
         //поля класса Person
         columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-
-        initializeListeners();
-
-
         //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
-
-        addressBookImpl.fillTestCollection(12);
-        tableAddressBook.setItems(addressBookImpl.getPersonList());
-
-
+        initializeListeners();
+        fillData();
         initializeLoader();
 
+    }
+
+    private void fillData() {
+        addressBookImpl.fillTestCollection(12);
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
     }
 
     private void initializeListeners(){
@@ -124,7 +122,7 @@ public class MainController {
 
         Button clickedButton = (Button) source;
 
-        Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
+        //Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
 
         Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
 
