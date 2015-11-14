@@ -2,6 +2,7 @@ package ru.training.javafx.controllers;
 
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -133,7 +134,7 @@ public class MainController {
     }
 
 
-
-
-
+    public void mouseClicked(Event event) {
+        System.out.println("click");
+    }
 }
