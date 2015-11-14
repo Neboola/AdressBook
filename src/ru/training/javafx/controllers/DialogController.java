@@ -32,9 +32,9 @@ public class DialogController {
     private Person person;
 
 
-    public void editButtonClick(ActionEvent actionEvent) {
-        editButton.setText("Готово!");
-    }
+    //public void editButtonClick(ActionEvent actionEvent) {
+    //    editButton.setText("Готово!");
+    //}
 
 
 

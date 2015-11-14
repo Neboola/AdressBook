@@ -99,29 +99,37 @@ public class MainController {
         Button clickedButton = (Button) source;
         Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
         Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
-        dialogController.setPerson(selectedPerson);
+
 
         switch (clickedButton.getId()){
             case "addButtonMain" :
-                System.out.println("Add " + selectedPerson);
-                addressBookImpl.getPersonList().add(new Person("Jil", "333333333"));
+                Person newPerson = new Person();
+                addressBookImpl.add(newPerson);
+
+                dialogController.setPerson(newPerson);
+                showDialog(parentWindow, "add_dialog");
+
+                if(newPerson.getName().equals("") && newPerson.getPhone().equals("")) { addressBookImpl.delete(newPerson); }
+
                 break;
             case "editButtonMain" :
-                showDialog(parentWindow);
+                dialogController.setPerson(selectedPerson);
+                showDialog(parentWindow, "edit_dialog");
                 break;
             case "deleteButtonMain" :
-                System.out.println("Delete " + selectedPerson);
+                //addressBookImpl.getPersonList().remove(selectedPerson);
+                addressBookImpl.delete(selectedPerson);
                 break;
         }
     }
 
     //=======
 
-    private void showDialog(Window parentWindow){
+    private void showDialog(Window parentWindow, String tittle){
         if(dialogStage==null){
             dialogStage = new Stage();
             //Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
-            dialogStage.setTitle("Диалог");
+
             dialogStage.setMinWidth(300);
             dialogStage.setMinHeight(150);
             dialogStage.setResizable(false);
@@ -130,7 +138,8 @@ public class MainController {
             dialogStage.initOwner(parentWindow);
 
         }
-        dialogStage.show();
+        dialogStage.setTitle(tittle);
+        dialogStage.showAndWait();
     }
 
 
