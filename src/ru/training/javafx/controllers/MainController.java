@@ -107,7 +107,7 @@ public class MainController implements Initializable{
     private void initializeLoader(){
         try{
             fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
-
+//==
             fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
 
             fxmlDialog = (Parent) fxmlLoader.load();
