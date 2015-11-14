@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ru.training.javafx.controllers.MainController;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Person;
 
@@ -15,6 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+/*
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/main.fxml"));
         primaryStage.setTitle("Телефонная книга");
         Scene scene = new Scene(root, 300, 400);
@@ -24,7 +26,18 @@ public class Main extends Application {
         primaryStage.show();
 
         //testData();
+*/
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("../fxml/main.fxml"));
+        Parent fxmlMain = (Parent) fxmlLoader.load();
+        MainController mainController = fxmlLoader.getController();
+        mainController.setMainStage(primaryStage);
 
+        primaryStage.setTitle("Адресная книга");
+        primaryStage.setMinHeight(300);
+        primaryStage.setMinWidth(285);
+        primaryStage.setScene(new Scene(fxmlMain, 303, 400));
+        primaryStage.show();
 
     }
 

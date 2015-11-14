@@ -3,6 +3,7 @@ package ru.training.javafx.controllers;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -22,6 +24,8 @@ import java.io.IOException;
 public class MainController {
 
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
+
+    private Stage mainStage;
 
     @FXML
     private Button editButtonMain;
@@ -47,6 +51,9 @@ public class MainController {
     private DialogController dialogController;
     private Stage dialogStage;
 
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
+    }
 
     @FXML
     private void initialize(){
@@ -54,6 +61,21 @@ public class MainController {
         //поля класса Person
         columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+
+        initializeListeners();
+
+
+        //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
+
+        addressBookImpl.fillTestCollection(12);
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
+
+
+        initializeLoader();
+
+    }
+
+    private void initializeListeners(){
 
         addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
             @Override
@@ -63,11 +85,19 @@ public class MainController {
             }
         });
 
-        tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
+        tableAddressBook.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getClickCount() == 2) {
+                    dialogController.setPerson((Person) tableAddressBook.getSelectionModel().getSelectedItem());
+                    showDialog("edit_dialog");
+                }
+            }
+        });
 
-        addressBookImpl.fillTestCollection(12);
-        tableAddressBook.setItems(addressBookImpl.getPersonList());
+    }
 
+    private void initializeLoader(){
         try{
             fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
             fxmlDialog = (Parent) fxmlLoader.load();
@@ -78,11 +108,7 @@ public class MainController {
         catch(IOException e){
             e.printStackTrace();
         }
-
-
     }
-
-
 
     private void updateCountLabel() {
         labelCount.setText("" + addressBookImpl.getPersonList().size());
@@ -97,15 +123,21 @@ public class MainController {
         }
 
         Button clickedButton = (Button) source;
-        Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
+
         Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
 
+        Person selectedPerson = (Person) tableAddressBook.getSelectionModel().getSelectedItem();
 
         switch (clickedButton.getId()){
             case "addButtonMain" :
+/*
+                dialogController.setPerson(new Person());
+                showDialog(parentWindow, "add_dialog");
+                addressBookImpl.add(dialogController.getPerson());
+*/
                 Person newPerson = new Person();
                 dialogController.setPerson(newPerson);
-                showDialog(parentWindow, "add_dialog");
+                showDialog("add_dialog");
 
                 if(!newPerson.getName().equals("") && !newPerson.getPhone().equals("")) {
                     addressBookImpl.add(newPerson);
@@ -114,7 +146,7 @@ public class MainController {
                 break;
             case "editButtonMain" :
                 dialogController.setPerson(selectedPerson);
-                showDialog(parentWindow, "edit_dialog");
+                showDialog("edit_dialog");
                 break;
             case "deleteButtonMain" :
                 //addressBookImpl.getPersonList().remove(selectedPerson);
@@ -125,7 +157,7 @@ public class MainController {
 
     //=======
 
-    private void showDialog(Window parentWindow, String tittle){
+    private void showDialog(String tittle){
         if(dialogStage==null){
             dialogStage = new Stage();
             //Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
@@ -135,7 +167,7 @@ public class MainController {
             dialogStage.setResizable(false);
             dialogStage.setScene(new Scene(fxmlDialog));
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(parentWindow);
+            dialogStage.initOwner(mainStage);
 
         }
         dialogStage.setTitle(tittle);

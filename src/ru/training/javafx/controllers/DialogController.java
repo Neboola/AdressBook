@@ -57,5 +57,8 @@ public class DialogController {
     }
 
 
+    public Person getPerson() {
+        return person;
+    }
 }
 
