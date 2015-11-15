@@ -73,10 +73,10 @@
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
             <GridPane.margin>
-                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                <Insets left="10.0" right="10.0" top="5.0" />
             </GridPane.margin>
             <children>
-                <TableView fx:id="tableAddressBook" onMouseClicked="#mouseClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="tableAddressBook" onMouseClicked="#mouseClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                         <TableColumn fx:id="columnName" prefWidth="75.0" text="%name" />
                         <TableColumn fx:id="columnPhone" prefWidth="75.0" text="%phone" />
@@ -89,9 +89,10 @@
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <children>
-                <Label layoutX="14.0" layoutY="6.0" text="%count" AnchorPane.leftAnchor="10.0" />
-                <Label fx:id="labelCount" layoutX="53.0" layoutY="6.0" text="0" AnchorPane.leftAnchor="51.0" />
-                <Label layoutX="150.0" layoutY="6.0" text=":" AnchorPane.leftAnchor="45.0" />
+                <Label layoutX="14.0" layoutY="6.0" text="%count" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" />
+                <Label fx:id="labelCount" layoutX="53.0" layoutY="6.0" text="0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="51.0" />
+                <Label layoutX="150.0" layoutY="6.0" text=":" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="45.0" />
+            <ComboBox fx:id="comboLocales" layoutX="136.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="95.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="10.0" />
             </children>
         </AnchorPane>
     </children>

@@ -62,7 +62,11 @@ public class CollectionAddressBook implements AddressBook {
         }
     }
 
+/*
+    //fromDB
+    public void updatePersonList(){
 
-
+    }
+*/
 
 }

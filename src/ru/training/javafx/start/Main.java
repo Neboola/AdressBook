@@ -4,17 +4,19 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.training.javafx.controllers.MainController;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+import ru.training.javafx.objects.Lang;
 import ru.training.javafx.objects.Person;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
 
-public class Main extends Application {
+public class Main extends Application implements Observer{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -54,6 +56,8 @@ public class Main extends Application {
 
     private void testData(){
 
+
+
         CollectionAddressBook addressBook = new CollectionAddressBook();
         addressBook.fillTestCollection(20);
         addressBook.printInConsole();
@@ -63,6 +67,16 @@ public class Main extends Application {
     }
 
 
+    @Override
+    public void update(Observable o, Object arg) {
+        Lang lang = (Lang) arg;
+        VBox newNode = loadFXML(lang.getLocale()); //obtain new tree of components with current locale
 
+        currentRoot.getChildren().setAll(newNode.getChildren()); //replace old children components by new components - with current locale
+    }
 
+    // loads new tree of components and returns as VBox - root component in FXML
+    private VBox loadFXML(Locale locale){
+
+    }
 }

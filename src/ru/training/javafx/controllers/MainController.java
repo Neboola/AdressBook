@@ -18,20 +18,26 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+import ru.training.javafx.objects.Lang;
 import ru.training.javafx.objects.Person;
-
+import ru.training.javafx.utils.LocaleManager;
 
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable{
+public class MainController extends Observable implements Initializable{
+
 
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     private Stage mainStage;
+
+    private static final String RU_CODE = "ru";
+    private static final String EN_CODE = "en";
 
     @FXML
     private Button editButtonMain;
@@ -53,6 +59,8 @@ public class MainController implements Initializable{
     private TableColumn<Person, String> columnName;
     @FXML
     private TableColumn<Person, String> columnPhone;
+    @FXML
+    private ComboBox comboLocales;
 
     private Parent fxmlDialog; //FXMLEdit
     private FXMLLoader fxmlLoader = new FXMLLoader();
@@ -84,6 +92,22 @@ public class MainController implements Initializable{
     private void fillData() {
         addressBookImpl.fillTestCollection(12);
         tableAddressBook.setItems(addressBookImpl.getPersonList());
+
+    }
+
+    private void fillComboLocales(){
+        Lang langRU = new Lang(0, RU_CODE, resourceBundle.getString("ru"), LocaleManager.RU_LOCALE);
+        Lang langEN = new Lang(0, EN_CODE, resourceBundle.getString("en"), LocaleManager.EN_LOCALE);
+
+        comboLocales.getItems().add(langRU);
+        comboLocales.getItems().add(langEN);
+
+        if(LocaleManager.getCurrentLang() == null){
+            comboLocales.getSelectionModel().select(0);
+        } else {
+            comboLocales.getSelectionModel().select(LocaleManager.getCurrentLang().getIndex());
+        }
+
     }
 
     private void initializeListeners(){
@@ -103,6 +127,18 @@ public class MainController implements Initializable{
                     dialogController.setPerson((Person) tableAddressBook.getSelectionModel().getSelectedItem());
                     showDialog(resourceBundle.getString("edit_dialog"));
                 }
+            }
+        });
+
+        comboLocales.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Lang selectedLang = (Lang) comboLocales.getSelectionModel().getSelectedItem();
+                LocaleManager.setCurrentLang(selectedLang);
+
+                //notyfy all observers about language changing
+                setChanged();
+                notifyObservers(selectedLang);
             }
         });
 
