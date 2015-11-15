@@ -21,6 +21,7 @@ import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Person;
 
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
@@ -158,17 +159,29 @@ public class MainController implements Initializable{
 
                 break;
             case "editButtonMain" :
+                if(!personIsSelected(selectedPerson)) {
+                    return;
+                }
                 dialogController.setPerson(selectedPerson);
                 showDialog(resourceBundle.getString("edit_dialog"));
                 break;
             case "deleteButtonMain" :
-                //addressBookImpl.getPersonList().remove(selectedPerson);
+                if(!personIsSelected(selectedPerson)) {
+                    return;
+                }
                 addressBookImpl.delete(selectedPerson);
                 break;
         }
     }
 
-    //=======
+    private boolean personIsSelected(Person selectedPerson){
+        if(selectedPerson == null) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 
     private void showDialog(String tittle){
         if(dialogStage==null){
