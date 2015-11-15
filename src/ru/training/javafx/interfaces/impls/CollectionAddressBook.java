@@ -6,6 +6,7 @@ import ru.training.javafx.interfaces.AddressBook;
 import ru.training.javafx.objects.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -34,6 +35,18 @@ public class CollectionAddressBook implements AddressBook {
 
     }
 
+    public ObservableList<Person> subStringSearch(String searchString){
+
+        ObservableList<Person> tempList = FXCollections.observableArrayList();
+        for(Person person : personList){
+            if(person.getName().indexOf(searchString) != -1){
+                tempList.add(person);
+            }
+        }
+        return tempList;
+
+    }
+
     public void printInConsole(){
 
 
@@ -47,6 +60,8 @@ public class CollectionAddressBook implements AddressBook {
             add(new Person("test" + i, i + "00000000"));
         }
     }
+
+
 
 
 }

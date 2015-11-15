@@ -42,6 +42,8 @@ public class MainController implements Initializable{
     @FXML
     private Button searchButtonMain;
     @FXML
+    private Button clearTextButtonMain;
+    @FXML
     private TableView tableAddressBook;
     @FXML
     private Label labelCount;
@@ -192,4 +194,14 @@ public class MainController implements Initializable{
     }
 
 
+    public void searchButtonClick(ActionEvent actionEvent) {
+        if(!searchTextFieldMain.getText().equals("")){
+            tableAddressBook.setItems(addressBookImpl.subStringSearch(searchTextFieldMain.getText()));
+        }
+    }
+
+    public void clearTextButtonClick(ActionEvent actionEvent) {
+        searchTextFieldMain.clear();
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
+    }
 }
