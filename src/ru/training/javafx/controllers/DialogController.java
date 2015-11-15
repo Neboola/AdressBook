@@ -49,8 +49,13 @@ public class DialogController implements Initializable {
     }
 
     public void actionSave(ActionEvent actionEvent){
-        person.setPhone(phoneTextField.getText());
-        person.setName(nameTextField.getText());
+        String phone = phoneTextField.getText();
+        String name = nameTextField.getText();
+        if(phone.isEmpty() || name.isEmpty()) {
+            return;
+        }
+        person.setPhone(phone);
+        person.setName(name);
         actionClose(actionEvent);
     }
 
