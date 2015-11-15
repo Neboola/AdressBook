@@ -40,8 +40,8 @@ public class Main extends Application {
 
         primaryStage.setTitle(fxmlLoader.getResources().getString("phone_book"));
         primaryStage.setMinHeight(300);
-        primaryStage.setMinWidth(285);
-        primaryStage.setScene(new Scene(fxmlMain, 303, 400));
+        primaryStage.setMinWidth(315);
+        primaryStage.setScene(new Scene(fxmlMain, 300, 400));
         primaryStage.show();
 
     }
