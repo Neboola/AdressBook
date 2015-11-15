@@ -1,6 +1,7 @@
 package ru.training.javafx.controllers;
 
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -196,12 +197,19 @@ public class MainController implements Initializable{
 
     public void searchButtonClick(ActionEvent actionEvent) {
         if(!searchTextFieldMain.getText().equals("")){
-            tableAddressBook.setItems(addressBookImpl.subStringSearch(searchTextFieldMain.getText()));
+            ObservableList<Person> tempList = addressBookImpl.subStringSearch(searchTextFieldMain.getText());
+            tableAddressBook.setItems(tempList);
+            labelCount.setText(String.valueOf(tempList.size()));
+        } else {
+            tableAddressBook.setItems(addressBookImpl.getPersonList());
+            updateCountLabel();
         }
+
     }
 
     public void clearTextButtonClick(ActionEvent actionEvent) {
         searchTextFieldMain.clear();
         tableAddressBook.setItems(addressBookImpl.getPersonList());
+        updateCountLabel();
     }
 }

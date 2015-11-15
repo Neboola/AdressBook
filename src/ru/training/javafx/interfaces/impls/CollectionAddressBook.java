@@ -39,7 +39,8 @@ public class CollectionAddressBook implements AddressBook {
 
         ObservableList<Person> tempList = FXCollections.observableArrayList();
         for(Person person : personList){
-            if(person.getName().indexOf(searchString) != -1){
+            //if(person.getName().indexOf(searchString) != -1){
+            if(person.getName().toLowerCase().contains(searchString.toLowerCase())){
                 tempList.add(person);
             }
         }
