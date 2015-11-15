@@ -31,7 +31,7 @@ public class Main extends Application {
 */
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../fxml/main.fxml"));
-//==
+
         fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
 
         Parent fxmlMain = (Parent) fxmlLoader.load();
