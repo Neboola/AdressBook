@@ -42,7 +42,7 @@ public class Main extends Application implements Observer{
         Scene scene = new Scene(currentRoot, 300, 400);
 
         mainController.setMainStage(primaryStage);
-        mainController.setLocaleDialog(locale);
+
         primaryStage.setScene(scene);
 
         primaryStage.setMinHeight(300);

@@ -32,18 +32,12 @@ import java.util.ResourceBundle;
 public class MainController extends Observable implements Initializable{
 
 
-
-    private static final String FXML_MAIN = "../fxml/dialog.fxml";
-    public static final String BUNDLES_FOLDER = "ru.training.javafx.bundles.Locale";
-
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     private Stage mainStage;
 
     private static final String RU_CODE = "ru";
     private static final String EN_CODE = "en";
-
-    private Locale localeDialog;
 
     @FXML
     private Button editButtonMain;
@@ -69,7 +63,7 @@ public class MainController extends Observable implements Initializable{
     private ComboBox comboLocales;
 
     private Parent fxmlDialog; //FXMLEdit
-    private FXMLLoader fxmlLoader /*= new FXMLLoader()*/;
+    private FXMLLoader fxmlLoader = new FXMLLoader();
     private DialogController dialogController;
     private Stage dialogStage;
 
@@ -77,10 +71,6 @@ public class MainController extends Observable implements Initializable{
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
-    }
-
-    public void setLocaleDialog(Locale localeDialog) {
-        this.localeDialog = localeDialog;
     }
 
     //@FXML
@@ -95,7 +85,7 @@ public class MainController extends Observable implements Initializable{
         //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
         initializeListeners();
         fillData();
-        initializeLoader(localeDialog);
+        initializeLoader();
         fillComboLocales();
 
     }
@@ -155,12 +145,11 @@ public class MainController extends Observable implements Initializable{
 
     }
 
-    private void initializeLoader(Locale locale){
+    private void initializeLoader(){
         try{
+            fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
 
-            fxmlLoader.setLocation(getClass().getResource(FXML_MAIN));
-
-            fxmlLoader.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, locale));
+            fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
 
             fxmlDialog = (Parent) fxmlLoader.load();
             dialogController = fxmlLoader.getController();
@@ -204,7 +193,7 @@ public class MainController extends Observable implements Initializable{
                 if(!newPerson.getName().equals("") && !newPerson.getPhone().equals("")) {
                     addressBookImpl.add(newPerson);
                 }
-
+                updateTable();
                 break;
             case "editButtonMain" :
                 if(!personIsSelected(selectedPerson)) {
@@ -212,12 +201,14 @@ public class MainController extends Observable implements Initializable{
                 }
                 dialogController.setPerson(selectedPerson);
                 showDialog(resourceBundle.getString("edit_dialog"));
+                //clearTable();
                 break;
             case "deleteButtonMain" :
                 if(!personIsSelected(selectedPerson)) {
                     return;
                 }
                 addressBookImpl.delete(selectedPerson);
+                updateTable();
                 break;
         }
     }
