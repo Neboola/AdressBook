@@ -32,12 +32,18 @@ import java.util.ResourceBundle;
 public class MainController extends Observable implements Initializable{
 
 
+
+    private static final String FXML_MAIN = "../fxml/dialog.fxml";
+    public static final String BUNDLES_FOLDER = "ru.training.javafx.bundles.Locale";
+
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     private Stage mainStage;
 
     private static final String RU_CODE = "ru";
     private static final String EN_CODE = "en";
+
+    private Locale localeDialog;
 
     @FXML
     private Button editButtonMain;
@@ -63,7 +69,7 @@ public class MainController extends Observable implements Initializable{
     private ComboBox comboLocales;
 
     private Parent fxmlDialog; //FXMLEdit
-    private FXMLLoader fxmlLoader = new FXMLLoader();
+    private FXMLLoader fxmlLoader /*= new FXMLLoader()*/;
     private DialogController dialogController;
     private Stage dialogStage;
 
@@ -71,6 +77,10 @@ public class MainController extends Observable implements Initializable{
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
+    }
+
+    public void setLocaleDialog(Locale localeDialog) {
+        this.localeDialog = localeDialog;
     }
 
     //@FXML
@@ -85,7 +95,8 @@ public class MainController extends Observable implements Initializable{
         //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
         initializeListeners();
         fillData();
-        initializeLoader();
+        initializeLoader(localeDialog);
+        fillComboLocales();
 
     }
 
@@ -97,7 +108,7 @@ public class MainController extends Observable implements Initializable{
 
     private void fillComboLocales(){
         Lang langRU = new Lang(0, RU_CODE, resourceBundle.getString("ru"), LocaleManager.RU_LOCALE);
-        Lang langEN = new Lang(0, EN_CODE, resourceBundle.getString("en"), LocaleManager.EN_LOCALE);
+        Lang langEN = new Lang(1, EN_CODE, resourceBundle.getString("en"), LocaleManager.EN_LOCALE);
 
         comboLocales.getItems().add(langRU);
         comboLocales.getItems().add(langEN);
@@ -144,11 +155,12 @@ public class MainController extends Observable implements Initializable{
 
     }
 
-    private void initializeLoader(){
+    private void initializeLoader(Locale locale){
         try{
-            fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
 
-            fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
+            fxmlLoader.setLocation(getClass().getResource(FXML_MAIN));
+
+            fxmlLoader.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, locale));
 
             fxmlDialog = (Parent) fxmlLoader.load();
             dialogController = fxmlLoader.getController();
@@ -257,6 +269,10 @@ public class MainController extends Observable implements Initializable{
     }
 
     public void clearTextButtonClick(ActionEvent actionEvent) {
+        updateTable();
+    }
+
+    private void updateTable(){
         searchTextFieldMain.clear();
         tableAddressBook.setItems(addressBookImpl.getPersonList());
         updateCountLabel();
