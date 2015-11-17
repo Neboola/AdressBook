@@ -96,7 +96,7 @@ public class MainController extends Observable implements Initializable{
         //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
         initializeListeners();
         fillData();
-        System.out.println("initialize(), fillData();");
+
         initializeLoaders();
         fillComboLocales();
         confirmController.setAddressBookImpl(addressBookImpl);
@@ -105,7 +105,7 @@ public class MainController extends Observable implements Initializable{
 
     private void fillData() {
         addressBookImpl.fillTestCollection(12);
-        System.out.println("initialize(), inside fillData();");
+
         tableAddressBook.setItems(addressBookImpl.getPersonList());
 
     }
@@ -259,7 +259,7 @@ public class MainController extends Observable implements Initializable{
                 }
                 dialogController.setPerson(selectedPerson);
                 showDialog(resourceBundle.getString("edit_dialog"));
-
+                
                 break;
             case "deleteButtonMain" :
                 if(!personIsSelected(selectedPerson)) {
