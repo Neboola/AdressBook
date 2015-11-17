@@ -41,6 +41,7 @@ public class MainController extends Observable implements Initializable{
     private static final String EN_CODE = "en";
 
     private static final String FXML_DIALOG = "../fxml/dialog.fxml";
+    private static final String FXML_CONFIRM = "../fxml/confirm.fxml";
     public static final String BUNDLES_FOLDER = "ru.training.javafx.bundles.Locale";
 
     @FXML
@@ -66,12 +67,16 @@ public class MainController extends Observable implements Initializable{
     @FXML
     private ComboBox comboLocales;
 
-    private Parent fxmlDialog; //FXMLEdit
+    private Parent fxmlDialog;
+    private Parent fxmlConfirm;
     private VBox currentRoot;
 
-    private FXMLLoader fxmlLoader = new FXMLLoader();
+    private FXMLLoader fxmlLoaderDialog = new FXMLLoader();
+    private FXMLLoader fxmlLoaderConfirm = new FXMLLoader();
     private DialogController dialogController;
+    private ConfirmController confirmController;
     private Stage dialogStage;
+    private Stage confirmStage;
 
     private ResourceBundle resourceBundle;
 
@@ -91,13 +96,16 @@ public class MainController extends Observable implements Initializable{
         //tableAddressBook.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //SINGLE - default
         initializeListeners();
         fillData();
-        initializeLoader();
+        System.out.println("initialize(), fillData();");
+        initializeLoaders();
         fillComboLocales();
+        confirmController.setAddressBookImpl(addressBookImpl);
 
     }
 
     private void fillData() {
         addressBookImpl.fillTestCollection(12);
+        System.out.println("initialize(), inside fillData();");
         tableAddressBook.setItems(addressBookImpl.getPersonList());
 
     }
@@ -132,6 +140,7 @@ public class MainController extends Observable implements Initializable{
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getClickCount() == 2) {
                     dialogController.setPerson((Person) tableAddressBook.getSelectionModel().getSelectedItem());
+                    
                     showDialog(resourceBundle.getString("edit_dialog"));
                 }
             }
@@ -143,7 +152,8 @@ public class MainController extends Observable implements Initializable{
                 Lang selectedLang = (Lang) comboLocales.getSelectionModel().getSelectedItem();
                 LocaleManager.setCurrentLang(selectedLang);
 
-                fxmlDialog = loadFXML(selectedLang.getLocale());
+                fxmlDialog = loadFXMLDialog(selectedLang.getLocale());
+                fxmlConfirm = loadFXMLConfirm(selectedLang.getLocale());
 
                 //notyfy all observers about language changing
                 setChanged();
@@ -153,14 +163,17 @@ public class MainController extends Observable implements Initializable{
 
     }
 
-    private void initializeLoader(){
+    private void initializeLoaders(){
         try{
-            fxmlLoader.setLocation(getClass().getResource(FXML_DIALOG));
+            fxmlLoaderDialog.setLocation(getClass().getResource(FXML_DIALOG));
+            fxmlLoaderDialog.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, LocaleManager.RU_LOCALE));
+            fxmlDialog = (Parent) fxmlLoaderDialog.load();
+            dialogController = fxmlLoaderDialog.getController();
 
-            fxmlLoader.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, LocaleManager.RU_LOCALE));
-
-            fxmlDialog = (Parent) fxmlLoader.load();
-            dialogController = fxmlLoader.getController();
+            fxmlLoaderConfirm.setLocation(getClass().getResource(FXML_CONFIRM));
+            fxmlLoaderConfirm.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, LocaleManager.RU_LOCALE));
+            fxmlConfirm = (Parent) fxmlLoaderConfirm.load();
+            confirmController = fxmlLoaderConfirm.getController();
 
         }
         catch(IOException e){
@@ -168,16 +181,35 @@ public class MainController extends Observable implements Initializable{
         }
     }
 
-    private VBox loadFXML(Locale locale){
-        fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(FXML_DIALOG));
-        fxmlLoader.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, locale));
+    private VBox loadFXMLDialog(Locale locale){
+        fxmlLoaderDialog = new FXMLLoader();
+        fxmlLoaderDialog.setLocation(getClass().getResource(FXML_DIALOG));
+        fxmlLoaderDialog.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, locale));
 
         VBox node = null;
 
         try{
-            node = (VBox) fxmlLoader.load();
-            dialogController = fxmlLoader.getController();
+            node = (VBox) fxmlLoaderDialog.load();
+            dialogController = fxmlLoaderDialog.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return node;
+
+    }
+
+    private VBox loadFXMLConfirm(Locale locale){
+        fxmlLoaderConfirm = new FXMLLoader();
+        fxmlLoaderConfirm.setLocation(getClass().getResource(FXML_CONFIRM));
+        fxmlLoaderConfirm.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, locale));
+
+        VBox node = null;
+
+        try{
+            node = (VBox) fxmlLoaderConfirm.load();
+            confirmController = fxmlLoaderConfirm.getController();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -227,13 +259,16 @@ public class MainController extends Observable implements Initializable{
                 }
                 dialogController.setPerson(selectedPerson);
                 showDialog(resourceBundle.getString("edit_dialog"));
-                //clearTable();
+
                 break;
             case "deleteButtonMain" :
                 if(!personIsSelected(selectedPerson)) {
                     return;
                 }
-                addressBookImpl.delete(selectedPerson);
+                confirmController.setPerson(selectedPerson);
+                showConfirm(resourceBundle.getString("delete_confirmation"));
+                //addressBookImpl.delete(selectedPerson);
+
                 updateTable();
                 break;
         }
@@ -264,8 +299,24 @@ public class MainController extends Observable implements Initializable{
         dialogStage.showAndWait();
     }
 
+    private void showConfirm(String tittle){
+        if(confirmStage==null){
+            confirmStage = new Stage();
+
+            confirmStage.setMinWidth(300);
+            confirmStage.setMinHeight(150);
+            confirmStage.setResizable(false);
+            confirmStage.setScene(new Scene(fxmlConfirm));
+            confirmStage.initModality(Modality.WINDOW_MODAL);
+            confirmStage.initOwner(mainStage);
+
+        }
+        confirmStage.setTitle(tittle);
+        confirmStage.showAndWait();
+    }
+
     public void mouseClicked(Event event) {
-        System.out.println("click");
+        //System.out.println("click");
     }
 
     public void searchButtonClick(ActionEvent actionEvent) {

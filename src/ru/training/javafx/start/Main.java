@@ -92,5 +92,5 @@ public class Main extends Application implements Observer{
 
         currentRoot.getChildren().setAll(newNode.getChildren()); //replace old children components by new components - with current locale
     }
-    
+
 }
