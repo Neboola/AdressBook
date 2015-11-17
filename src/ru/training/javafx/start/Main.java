@@ -35,8 +35,7 @@ public class Main extends Application implements Observer{
         createGUI(LocaleManager.RU_LOCALE);
     }
 
-    private void createGUI(Locale locale)
-    {
+    private void createGUI(Locale locale) {
 
         currentRoot = loadFXML(locale);
         Scene scene = new Scene(currentRoot, 300, 400);
@@ -52,9 +51,9 @@ public class Main extends Application implements Observer{
 
     }
 
-
     public static void main(String[] args) {
         launch(args);
+
 
     }
 
@@ -86,7 +85,6 @@ public class Main extends Application implements Observer{
 
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
         Lang lang = (Lang) arg;
@@ -94,7 +92,5 @@ public class Main extends Application implements Observer{
 
         currentRoot.getChildren().setAll(newNode.getChildren()); //replace old children components by new components - with current locale
     }
-
-    // loads new tree of components and returns as GridPane - root component in FXML
-
+    
 }

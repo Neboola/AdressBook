@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -31,13 +33,15 @@ import java.util.ResourceBundle;
 
 public class MainController extends Observable implements Initializable{
 
-
     private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     private Stage mainStage;
 
     private static final String RU_CODE = "ru";
     private static final String EN_CODE = "en";
+
+    private static final String FXML_DIALOG = "../fxml/dialog.fxml";
+    public static final String BUNDLES_FOLDER = "ru.training.javafx.bundles.Locale";
 
     @FXML
     private Button editButtonMain;
@@ -63,6 +67,8 @@ public class MainController extends Observable implements Initializable{
     private ComboBox comboLocales;
 
     private Parent fxmlDialog; //FXMLEdit
+    private VBox currentRoot;
+
     private FXMLLoader fxmlLoader = new FXMLLoader();
     private DialogController dialogController;
     private Stage dialogStage;
@@ -137,6 +143,8 @@ public class MainController extends Observable implements Initializable{
                 Lang selectedLang = (Lang) comboLocales.getSelectionModel().getSelectedItem();
                 LocaleManager.setCurrentLang(selectedLang);
 
+                fxmlDialog = loadFXML(selectedLang.getLocale());
+
                 //notyfy all observers about language changing
                 setChanged();
                 notifyObservers(selectedLang);
@@ -147,18 +155,36 @@ public class MainController extends Observable implements Initializable{
 
     private void initializeLoader(){
         try{
-            fxmlLoader.setLocation(getClass().getResource("../fxml/dialog.fxml"));
+            fxmlLoader.setLocation(getClass().getResource(FXML_DIALOG));
 
-            fxmlLoader.setResources(ResourceBundle.getBundle("ru.training.javafx.bundles.Locale", new Locale("ru")));
+            fxmlLoader.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, LocaleManager.RU_LOCALE));
 
             fxmlDialog = (Parent) fxmlLoader.load();
             dialogController = fxmlLoader.getController();
-
 
         }
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    private VBox loadFXML(Locale locale){
+        fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(FXML_DIALOG));
+        fxmlLoader.setResources(ResourceBundle.getBundle(BUNDLES_FOLDER, locale));
+
+        VBox node = null;
+
+        try{
+            node = (VBox) fxmlLoader.load();
+            dialogController = fxmlLoader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return node;
+
     }
 
     private void updateCountLabel() {
@@ -225,9 +251,6 @@ public class MainController extends Observable implements Initializable{
     private void showDialog(String tittle){
         if(dialogStage==null){
             dialogStage = new Stage();
-            //Parent root = FXMLLoader.load(getClass().getResource("../fxml/dialog.fxml"));
-
-
 
             dialogStage.setMinWidth(300);
             dialogStage.setMinHeight(150);
@@ -241,11 +264,9 @@ public class MainController extends Observable implements Initializable{
         dialogStage.showAndWait();
     }
 
-
     public void mouseClicked(Event event) {
         System.out.println("click");
     }
-
 
     public void searchButtonClick(ActionEvent actionEvent) {
         if(!searchTextFieldMain.getText().equals("")){
