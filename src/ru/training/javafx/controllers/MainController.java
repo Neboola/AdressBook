@@ -288,8 +288,8 @@ public class MainController extends Observable implements Initializable{
         if(dialogStage==null){
             dialogStage = new Stage();
 
-            dialogStage.setMinWidth(300);
-            dialogStage.setMinHeight(150);
+            dialogStage.setWidth(300);
+            dialogStage.setHeight(185);
             dialogStage.setResizable(false);
             dialogStage.setScene(new Scene(fxmlDialog));
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -304,8 +304,8 @@ public class MainController extends Observable implements Initializable{
         if(confirmStage==null){
             confirmStage = new Stage();
 
-            confirmStage.setMinWidth(300);
-            confirmStage.setMinHeight(150);
+            confirmStage.setWidth(300);
+            confirmStage.setHeight(140);
             confirmStage.setResizable(false);
             confirmStage.setScene(new Scene(fxmlConfirm));
             confirmStage.initModality(Modality.WINDOW_MODAL);

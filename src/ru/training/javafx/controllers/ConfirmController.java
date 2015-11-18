@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
@@ -28,11 +29,11 @@ public class ConfirmController implements Initializable {
     private ResourceBundle resourceBundle;
 
     @FXML
-    private TextField nameTextField;
+    private Label nameTextField;
 
     public void setPerson(Person person){
         this.person = person;
-        nameTextField.setText(person.getName());
+        nameTextField.setText(resourceBundle.getString("delete") + " " + person.getName() + "?");
 
     }
 
