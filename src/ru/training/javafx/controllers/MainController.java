@@ -270,6 +270,7 @@ public class MainController extends Observable implements Initializable{
                 //addressBookImpl.delete(selectedPerson);
 
                 updateTable();
+
                 break;
         }
     }
@@ -339,5 +340,6 @@ public class MainController extends Observable implements Initializable{
         searchTextFieldMain.clear();
         tableAddressBook.setItems(addressBookImpl.getPersonList());
         updateCountLabel();
+        tableAddressBook.getSelectionModel().selectBelowCell();
     }
 }
