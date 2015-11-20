@@ -11,6 +11,7 @@ import ru.training.javafx.controllers.MainController;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Lang;
 import ru.training.javafx.objects.Person;
+import ru.training.javafx.utils.CollectionAddressBookStorage;
 import ru.training.javafx.utils.LocaleManager;
 
 import java.io.BufferedReader;
@@ -52,6 +53,10 @@ public class Main extends Application implements Observer{
     }
 
     public static void main(String[] args) {
+
+            CollectionAddressBookStorage.getBook().fillTestCollection(12);
+            //System.out.println("Initializing..........");
+
         launch(args);
 
 
@@ -77,13 +82,7 @@ public class Main extends Application implements Observer{
 
     }
 
-    private void testData(){
 
-        CollectionAddressBook addressBook = new CollectionAddressBook();
-        addressBook.fillTestCollection(20);
-        addressBook.printInConsole();
-
-    }
 
     @Override
     public void update(Observable o, Object arg) {
