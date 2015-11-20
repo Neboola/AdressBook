@@ -4,7 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.training.javafx.interfaces.AddressBook;
 import ru.training.javafx.objects.Person;
+import ru.training.javafx.utils.CollectionAddressBookStorage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -14,14 +16,27 @@ import java.util.Observable;
  */
 public class CollectionAddressBook implements AddressBook {
 
+
+
     private ObservableList<Person> personList = FXCollections.observableArrayList();
 
     public ObservableList<Person> getPersonList(){
         return personList;
     }
+    public void setPersonList(ObservableList<Person> personList) {
+        this.personList = personList;
+    }
 
     @Override
     public void add(Person person) {
+/*
+        if (person.getName() == null) {
+            person.setName("");
+        }
+        if (person.getPhone() == null) {
+            person.setPhone("");
+        }
+*/
         personList.add(person);
     }
 
@@ -49,6 +64,11 @@ public class CollectionAddressBook implements AddressBook {
 
     }
 
+
+    public void init() {
+        personList = CollectionAddressBookStorage.getPersonList();
+    }
+
     public void printInConsole(){
 
 
@@ -57,17 +77,6 @@ public class CollectionAddressBook implements AddressBook {
         }
     }
 
-    public void fillTestCollection(int n){
-        for (int i = 0; i < n; i++) {
-            add(new Person("test" + i, i + "00000000"));
-        }
-    }
 
-/*
-    //fromDB
-    public void updatePersonList(){
-
-    }
-*/
 
 }

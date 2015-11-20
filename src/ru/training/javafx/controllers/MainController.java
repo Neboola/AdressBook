@@ -19,9 +19,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import ru.training.javafx.interfaces.AddressBook;
 import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+import ru.training.javafx.interfaces.impls.FileAddressBook;
 import ru.training.javafx.objects.Lang;
 import ru.training.javafx.objects.Person;
+import ru.training.javafx.utils.CollectionAddressBookStorage;
 import ru.training.javafx.utils.LocaleManager;
 
 
@@ -32,9 +35,11 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class MainController extends Observable implements Initializable{
-
-    private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
-
+//==
+    //private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
+    private CollectionAddressBook addressBookImpl = new FileAddressBook();
+    //private AddressBook addressBookImpl = new DBAddressBook();
+//==
     private Stage mainStage;
 
     private static final String RU_CODE = "ru";
@@ -87,6 +92,7 @@ public class MainController extends Observable implements Initializable{
     //@FXML
     @Override
     public void initialize(URL url, ResourceBundle resource) {
+        addressBookImpl.init();
 
         resourceBundle = resource;
 
@@ -105,7 +111,7 @@ public class MainController extends Observable implements Initializable{
     }
 
     private void fillData() {
-        addressBookImpl.fillTestCollection(12);
+
 
         tableAddressBook.setItems(addressBookImpl.getPersonList());
 
@@ -159,6 +165,7 @@ public class MainController extends Observable implements Initializable{
                 //notyfy all observers about language changing
                 setChanged();
                 notifyObservers(selectedLang);
+                updateCountLabel();
             }
         });
 
@@ -250,6 +257,7 @@ public class MainController extends Observable implements Initializable{
                 showDialog(resourceBundle.getString("add_dialog"));
 
                 if(!newPerson.getName().equals("") && !newPerson.getPhone().equals("")) {
+
                     addressBookImpl.add(newPerson);
                 }
                 updateTable();
@@ -341,6 +349,7 @@ public class MainController extends Observable implements Initializable{
     private void updateTable(){
         searchTextFieldMain.clear();
         tableAddressBook.setItems(addressBookImpl.getPersonList());
+
         updateCountLabel();
 
     }

@@ -7,7 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+import ru.training.javafx.interfaces.AddressBook;
+//import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Person;
 
 import java.net.URL;
@@ -20,9 +21,9 @@ public class ConfirmController implements Initializable {
 
     private Person person;
 
-    private CollectionAddressBook addressBookImpl;
+    private AddressBook addressBookImpl;
 
-    public void setAddressBookImpl(CollectionAddressBook addressBookImpl) {
+    public void setAddressBookImpl(AddressBook addressBookImpl) {
         this.addressBookImpl = addressBookImpl;
     }
 

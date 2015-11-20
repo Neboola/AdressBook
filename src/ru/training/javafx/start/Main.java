@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.training.javafx.controllers.MainController;
-import ru.training.javafx.interfaces.impls.CollectionAddressBook;
+//import ru.training.javafx.interfaces.impls.CollectionAddressBook;
 import ru.training.javafx.objects.Lang;
 import ru.training.javafx.objects.Person;
 import ru.training.javafx.utils.CollectionAddressBookStorage;
@@ -54,8 +54,11 @@ public class Main extends Application implements Observer{
 
     public static void main(String[] args) {
 
-            CollectionAddressBookStorage.getBook().fillTestCollection(12);
-            //System.out.println("Initializing..........");
+        //System.out.println("Initializing..........");
+        //CollectionAddressBookStorage.fillTestCollection(12);
+
+
+
 
         launch(args);
 
