@@ -9,6 +9,6 @@ public interface AddressBook {
 
     void add(Person person);
     void delete(Person person);
-    void edit(Person person);
+    void edit(Person person, String newName, String newPhone);
 
 }

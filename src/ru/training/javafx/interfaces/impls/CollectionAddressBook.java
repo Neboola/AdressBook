@@ -31,8 +31,9 @@ public class CollectionAddressBook implements AddressBook {
     }
 
     @Override
-    public void edit(Person person) {
-
+    public void edit(Person person, String newName, String newPhone) {
+        person.setPhone(newPhone);
+        person.setName(newName);
     }
 
     public ObservableList<Person> subStringSearch(String searchString){

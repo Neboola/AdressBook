@@ -20,11 +20,11 @@ public class ConfirmController implements Initializable {
 
     private Person person;
 
+    private CollectionAddressBook addressBookImpl;
+
     public void setAddressBookImpl(CollectionAddressBook addressBookImpl) {
         this.addressBookImpl = addressBookImpl;
     }
-
-    private CollectionAddressBook addressBookImpl;
 
     private ResourceBundle resourceBundle;
 

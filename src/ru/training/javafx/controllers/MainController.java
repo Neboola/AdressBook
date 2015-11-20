@@ -100,6 +100,7 @@ public class MainController extends Observable implements Initializable{
         initializeLoaders();
         fillComboLocales();
         confirmController.setAddressBookImpl(addressBookImpl);
+        dialogController.setAddressBookImpl(addressBookImpl);
 
     }
 
@@ -270,6 +271,7 @@ public class MainController extends Observable implements Initializable{
                 //addressBookImpl.delete(selectedPerson);
 
                 updateTable();
+                tableAddressBook.getSelectionModel().selectBelowCell();
 
                 break;
         }
@@ -340,6 +342,6 @@ public class MainController extends Observable implements Initializable{
         searchTextFieldMain.clear();
         tableAddressBook.setItems(addressBookImpl.getPersonList());
         updateCountLabel();
-        tableAddressBook.getSelectionModel().selectBelowCell();
+
     }
 }

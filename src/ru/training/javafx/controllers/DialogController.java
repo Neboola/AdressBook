@@ -11,6 +11,7 @@ package ru.training.javafx.controllers;
         import javafx.scene.control.TextField;
         import javafx.stage.Modality;
         import javafx.stage.Stage;
+        import ru.training.javafx.interfaces.impls.CollectionAddressBook;
         import ru.training.javafx.objects.Person;
 
 
@@ -37,6 +38,13 @@ public class DialogController implements Initializable {
 
     private ResourceBundle resourceBundle;
 
+
+    private CollectionAddressBook addressBookImpl;
+
+    public void setAddressBookImpl(CollectionAddressBook addressBookImpl) {
+        this.addressBookImpl = addressBookImpl;
+    }
+
     //public void editButtonClick(ActionEvent actionEvent) {
     //    editButton.setText("Готово!");
     //}
@@ -55,8 +63,7 @@ public class DialogController implements Initializable {
         if(phone.isEmpty() || name.isEmpty()) {
             return;
         }
-        person.setPhone(phone);
-        person.setName(name);
+        addressBookImpl.edit(person, name, phone);
         actionClose(actionEvent);
     }
 
