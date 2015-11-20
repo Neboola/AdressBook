@@ -12,12 +12,16 @@ import java.io.*;
 public class FileAddressBook extends CollectionAddressBook {
 
     File personListFile;
+    String filePath = "src/ru/training/javafx/store/files/AddressBookFile.txt";
 
     public void init(){
 
         ObservableList<Person> personList = FXCollections.observableArrayList();
         try{
-            personListFile = new File("src/ru/training/javafx/store/files/BOOK");
+            personListFile = new File(filePath);
+
+            personListFile.createNewFile();
+
             System.out.println(personListFile.getPath());
 
             FileReader fileReader = new FileReader(personListFile);
@@ -44,12 +48,12 @@ public class FileAddressBook extends CollectionAddressBook {
             } while ((name != null) || (phone != null));
 
 
-            System.out.println(lineNumber + " lines in the file");
+            //System.out.println(lineNumber + " lines in the file");
 
             lineNumberReader.close();
 
         }catch(IOException e){
-            System.out.println("IOException in FileAddressBook.init");
+            //System.out.println("IOException in FileAddressBook.init");
             e.printStackTrace();
         }
 
@@ -60,22 +64,36 @@ public class FileAddressBook extends CollectionAddressBook {
     @Override
     public void add(Person person) {
         super.add(person);
-
+        updateFile(super.getPersonList());
     }
 
     @Override
     public void delete(Person person) {
         super.delete(person);
-
+        updateFile(super.getPersonList());
     }
 
     @Override
     public void edit(Person person, String newName, String newPhone) {
         super.edit(person, newName, newPhone);
-
+        updateFile(super.getPersonList());
     }
 
     private void updateFile(ObservableList<Person> personList){
+        System.out.println("File updating....");
+        try{
+            PrintWriter printWriter = new PrintWriter(personListFile);
+            for (Person p : personList) {
+                printWriter.println(p.getName());
+                printWriter.println(p.getPhone());
+                System.out.println("Person " + p.getName() + " " + p.getPhone() + " saved");
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
