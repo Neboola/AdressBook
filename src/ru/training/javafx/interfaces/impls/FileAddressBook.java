@@ -24,15 +24,14 @@ public class FileAddressBook extends CollectionAddressBook {
 
             System.out.println(personListFile.getPath());
 
-            FileReader fileReader = new FileReader(personListFile);
-            LineNumberReader lineNumberReader = new LineNumberReader(fileReader);
+            BufferedReader br = new BufferedReader(new FileReader(personListFile));
 
             int lineNumber = 0;
             String s, name = "", phone = "";
 
 
             do{
-                s = lineNumberReader.readLine();
+                s = br.readLine();
 
                 if (lineNumber%2 == 0){
                     name = s;
@@ -50,7 +49,7 @@ public class FileAddressBook extends CollectionAddressBook {
 
             //System.out.println(lineNumber + " lines in the file");
 
-            lineNumberReader.close();
+            br.close();
 
         }catch(IOException e){
             //System.out.println("IOException in FileAddressBook.init");
@@ -63,6 +62,12 @@ public class FileAddressBook extends CollectionAddressBook {
 
     @Override
     public void add(Person person) {
+        if (person.getName() == null) {
+            person.setName("");
+        }
+        if (person.getPhone() == null) {
+            person.setPhone("");
+        }
         super.add(person);
         updateFile(super.getPersonList());
     }
@@ -82,12 +87,15 @@ public class FileAddressBook extends CollectionAddressBook {
     private void updateFile(ObservableList<Person> personList){
         System.out.println("File updating....");
         try{
-            PrintWriter printWriter = new PrintWriter(personListFile);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(personListFile));
             for (Person p : personList) {
-                printWriter.println(p.getName());
-                printWriter.println(p.getPhone());
+
+                bw.write(p.getName() + "\r\n");
+                bw.write(p.getPhone() + "\r\n");
+
                 System.out.println("Person " + p.getName() + " " + p.getPhone() + " saved");
             }
+            bw.close();
 
 
         } catch (IOException e) {

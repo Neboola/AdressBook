@@ -30,12 +30,7 @@ public class CollectionAddressBook implements AddressBook {
     @Override
     public void add(Person person) {
 /*
-        if (person.getName() == null) {
-            person.setName("");
-        }
-        if (person.getPhone() == null) {
-            person.setPhone("");
-        }
+
 */
         personList.add(person);
     }
