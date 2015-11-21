@@ -61,8 +61,12 @@ public class DialogController implements Initializable {
     public void actionSave(ActionEvent actionEvent){
         String phone = phoneTextField.getText();
         String name = nameTextField.getText();
-        if(phone.isEmpty() || name.isEmpty()) {
+        if(phone == null || name == null) {
             return;
+        } else {
+            if (phone.isEmpty() || name.isEmpty()) {
+                return;
+            }
         }
         addressBookImpl.edit(person, name, phone);
         actionClose(actionEvent);

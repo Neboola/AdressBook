@@ -22,37 +22,26 @@ public class FileAddressBook extends CollectionAddressBook {
 
             personListFile.createNewFile();
 
-            System.out.println(personListFile.getPath());
-
             BufferedReader br = new BufferedReader(new FileReader(personListFile));
 
             int lineNumber = 0;
             String s, name = "", phone = "";
 
-
-            do{
+            while ((name != null) && (phone != null)) {
                 s = br.readLine();
-
-                if (lineNumber%2 == 0){
-                    name = s;
-                } else {
-                    phone = s;
-                    personList.add(new Person(name, phone));
-                }
-
-
                 lineNumber++;
 
-
-            } while ((name != null) || (phone != null));
-
-
-            //System.out.println(lineNumber + " lines in the file");
+                if (lineNumber%2 == 0){
+                    phone = s;
+                    personList.add(new Person(name, phone));
+                } else {
+                    name = s;
+                }
+            }
 
             br.close();
 
         }catch(IOException e){
-            //System.out.println("IOException in FileAddressBook.init");
             e.printStackTrace();
         }
 
@@ -85,7 +74,7 @@ public class FileAddressBook extends CollectionAddressBook {
     }
 
     private void updateFile(ObservableList<Person> personList){
-        System.out.println("File updating....");
+
         try{
             BufferedWriter bw = new BufferedWriter(new FileWriter(personListFile));
             for (Person p : personList) {
@@ -93,7 +82,6 @@ public class FileAddressBook extends CollectionAddressBook {
                 bw.write(p.getName() + "\r\n");
                 bw.write(p.getPhone() + "\r\n");
 
-                System.out.println("Person " + p.getName() + " " + p.getPhone() + " saved");
             }
             bw.close();
 
